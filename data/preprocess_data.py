@@ -8,16 +8,12 @@ import tensorflow as tf
 from collections import Counter
 from random import sample 
 
-#from nltk.corpus import stopwords
-
-from utils.data_processing import save_pickle, load_pickle
-from utils.import_data import load_natural_images
-
-from IPython import embed
+from data_processing import save_pickle, load_pickle
+from import_data import load_natural_images
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', type=str, default='/home/marcus/workspace/datasets/GroceryStoreDataset/dataset', help='Directory for image dataset')
-parser.add_argument('--save_dir', type=str, default='/home/marcus/workspace/papers/journal_paper/data', help='Directory for saving processed data')
+parser.add_argument('--save_dir', type=str, default='/home/marcus/workspace/papers/vcca_grocerystore/data/processed', help='Directory for saving processed data')
 parser.add_argument('--caption_length', type=int, default=24, help='Maximum number of words in text descriptions')
 
 def _process_caption_data(class_file, data_path, max_length, stop_words=None):
