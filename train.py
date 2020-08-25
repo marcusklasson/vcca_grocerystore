@@ -162,6 +162,7 @@ for epoch in range(args.n_epochs):
         np.save(args.model_dir + '/accuracy_train.npy', accuracy_train)
         np.save(args.model_dir + '/accuracy_val.npy', accuracy_val)        
 
+
 # Evaluation
 if args.eval_mode == 'val':
     eval_data = val_data
