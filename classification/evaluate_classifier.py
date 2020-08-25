@@ -93,7 +93,7 @@ def evaluate_softmax_classifier(args, eval_data, train_data, train=True):
     inputdim = latent_features_train.shape[-1]
     log_dir = os.path.join(args.clf_dir, 'logs')
     clf = Classifier(latent_features_train, labels_train, n_classes, inputdim,
-                     logdir=log_dir, modeldir=args.clf_dir, _nepoch=100)
+                     logdir=log_dir, modeldir=args.clf_dir, _nepoch=100, seed=args.seed)
     if train:
         clf.train()
     accuracy, predicted_labels = clf.val(latent_features_eval, labels_eval)
