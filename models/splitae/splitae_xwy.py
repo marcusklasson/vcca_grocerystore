@@ -44,7 +44,7 @@ class SplitAE(object):
         self.idx_to_word = {i: w for w, i in word_to_idx.items()}
 
         self.V = len(word_to_idx) # Vocabulary size
-        self.T = dim_captions # Number of time steps in LSTM
+        self.T = dim_w # Number of time steps in LSTM
         self.M = 256 # word embedding size
         self.H = dim_z # LSTM hidden state size
         
