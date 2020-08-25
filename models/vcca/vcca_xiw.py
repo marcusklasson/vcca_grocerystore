@@ -243,9 +243,9 @@ def run_training_epoch(args, data, model, hyperparams, session, train_op=None, s
 
         # Prepare batch and hyperparameters 
         x_batch = features[start:end]
-        y_batch = load_iconic_images(iconic_image_path[start:end])
+        iconic_images_batch = load_iconic_images(iconic_image_path[start:end])
         captions_batch = load_captions(captions, labels[start:end])
-        feed_dict={model.x: x_batch, model.y: y_batch, model.captions: captions_batch,
+        feed_dict={model.x: x_batch, model.iconic_images: iconic_images_batch, model.captions: captions_batch,
                     model.dropout_rate: dropout_rate, model.is_training: is_training, model.kl_weight: kl_weight}
 
         if mode == 'train':
