@@ -54,8 +54,8 @@ parser.add_argument('--visualization_method', type=str, default='pca', help='Met
 parser.add_argument('--seed', type=int, default=0, help='Random seed')
 parser.add_argument('--print_every', type=int, default=1, help='Print every i\'th epoch')
 parser.add_argument('--which_gpu', type=int, default=0, help='Which GPU to use? 0 or 1')
-parser.add_argument('--save_model', type=int, default=0, help='Save model in log directory')
-parser.add_argument('--save_file', type=str, default='/home/marcus/random_search_unsupervised.txt', help='File for saving results')
+parser.add_argument('--save_model', type=int, default=0, help='Option for saving model in directory')
+parser.add_argument('--save_file', type=str, default='./clf_metrics.txt', help='File for saving results')
 parser.add_argument('--eval_mode', type=str, default='val', help='Evaluation mode, val or test')
 parser.add_argument('--feature_extractor_name', type=str, default='densenet', help='Feature extractor. densenet or resnet')
 
@@ -177,7 +177,7 @@ if args.use_labels:
                     'accuracy': model.val_accuracy, 'posterior_samples': model.K}
     elif model_type == 'splitae':
         tensors = {'x': model.x, 'labels': model.labels, 'scores': model.logits, 'accuracy': model.accuracy}
-        
+
     accuracy, accuracy_coarse, predicted_labels = evaluate_class_label_decoder(args, sess, tensors, eval_data)
 else:
     # Softmax classifier
