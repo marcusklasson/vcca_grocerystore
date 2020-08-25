@@ -56,7 +56,7 @@ parser.add_argument('--print_every', type=int, default=1, help='Print every i\'t
 parser.add_argument('--which_gpu', type=int, default=0, help='Which GPU to use? 0 or 1')
 parser.add_argument('--save_model', type=int, default=0, help='Option for saving model in directory')
 parser.add_argument('--save_file', type=str, default='./clf_metrics.txt', help='File for saving results')
-parser.add_argument('--eval_mode', type=str, default='val', help='Evaluation mode, val or test')
+parser.add_argument('--eval_mode', type=str, default='test', help='Evaluation mode, val or test')
 parser.add_argument('--feature_extractor_name', type=str, default='densenet', help='Feature extractor. densenet or resnet')
 
 args = parser.parse_args() 
