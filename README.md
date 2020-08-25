@@ -20,6 +20,7 @@ Download the Grocery Store dataset and store it wherever appropriate for you.
 
 [Github link to the Grocery Store dataset](https://github.com/marcusklasson/GroceryStoreDataset)
 
+### Preprocessing of data
 Before training, we have to preprocess the data. 
 The preprocessing includes fetching image paths and labels, and 
 creating a vocabulary for the text descriptions. 
@@ -31,6 +32,7 @@ python ./data/preprocess_data.py --data_path /path/to/GroceryStoreDataset \
 	--save_dir /path/to/save/data
 ```
 
+### Off-the-shelf features for the natural images
 We have extracted off-the-shelf features from a pre-trained DenseNet169 network.
 The features should be stored in the same directory as where the preprocessed data is located.
 
@@ -39,6 +41,7 @@ The features should be stored in the same directory as where the preprocessed da
 
 ## Training
 
+### Selecting a model
 Start by selecting which model you wish to train:
 * VCCA: ```vcca_xi, vcca_xiy, vcca_xw, vcca_xwy, vcca_xiw, vcca_xiwy, vcca_xy ```
 * VCCA-private: ```vcca_private_xi, vcca_private_xiy, vcca_private_xw, vcca_private_xwy ```
@@ -56,15 +59,17 @@ The VAE and Autoencoder names do not use a subscript because they only use the i
 If selecting a model without ```y```, then classification is performed by training a softmax classifier
 on the latent representations of the model.
 
+### Scaling weights for reconstruction losses
 We can choose to scale the reconstruction losses for each view by passing a number to 
 the following arguments to train.py:
 * ```--lambda_x```: Scaling weight for image feature loss
 * ```--lambda_i```: Scaling weight for iconic image loss 
 * ```--lambda_i```: Scaling weight for text descriptions loss
-* ```--lambda_y```: Scalign weight for class labels
+* ```--lambda_y```: Scaling weight for class labels
 
 The default values for all scaling weights is 1.
 
+### Training the selected model
 As an example, we train the model ```vcca_xiwy``` by executing:
 ```
 python train.py --data_path /path/to/processed_data --model_name vcca_xiwy 
@@ -89,9 +94,11 @@ Run the script by executing:
 ```
 python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_model --model_name MODEL_NAME 
 ```
-If the model used a softmax classifier, then pass the argument ```--clf_dir /path/to/saved_classifier```
+If the model used a softmax classifier, then pass the argument 
+```--clf_dir /path/to/saved_classifier```
 
-Metrics and images are saved in the directory passed as argument ```--save_dir /path/to/saved_metrics_and_images```
+Metrics and images are saved in the directory passed as argument 
+```--save_dir /path/to/saved_metrics_and_images```
 
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
