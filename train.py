@@ -19,22 +19,18 @@ from visualization.plot_latents import plot_latent_representation
 
 parser = argparse.ArgumentParser()
 # Directory arguments
-parser.add_argument('--data_path', type=str, default='/home/marcus/workspace/papers/vcca_grocerystore/data/processed', help='Data directory')
-parser.add_argument('--log_dir', type=str, default='/home/marcus/workspace/log_triplehead', help='Log directory')
-parser.add_argument('--model_dir', type=str, default='/home/marcus/workspace/saved_models', help='Saved model directory')
-parser.add_argument('--clf_dir', type=str, default='/home/marcus/workspace/saved_models/saved_classifier', help='Saved classifier directory')
-parser.add_argument('--save_dir', type=str, default='/home/marcus/workspace/saved_stuff',
+parser.add_argument('--data_path', type=str, default='./data/processed', help='Data directory')
+parser.add_argument('--model_dir', type=str, default='./saved_model', help='Saved model directory')
+#parser.add_argument('--clf_dir', type=str, default='./saved_models/saved_classifier', help='Saved classifier directory')
+parser.add_argument('--save_dir', type=str, default='/home/marcus/workspace/saved_images_and_metrics',
  help='Directory for saving figures and printing to files')
-
 # Training arguments
 parser.add_argument('--batch_size', type=int, default=64, help='Mini-batch size')
 parser.add_argument('--n_epochs', type=int, default=200, help='Number of training epochs')
 parser.add_argument('--lr', type=float, default=1e-4, help='Learning rate')
 parser.add_argument('--optimizer', type=str, default='adam', help='Training optimizer')
-
 # Data arguments
 parser.add_argument('--iconic_img_size', type=int, default=64, help='Iconic image size')
-
 # Model arguments
 parser.add_argument('--model_name', type=str, default='ae', help='Model name',
     choices=[ 'vae', 'vcca_xy', 'vcca_xw', 'vcca_xwy', 'vcca_xi', 'vcca_xiy', 'vcca_xiw', 'vcca_xiwy', 
@@ -51,11 +47,9 @@ parser.add_argument('--n_layers_decoder', type=int, default=1, help='Number of l
 parser.add_argument('--n_layers_classifier', type=int, default=1, help='Number of layers in classifier')
 parser.add_argument('--use_batchnorm', type=int, default=0, help='Use BatchNorm in encoder and decoder')
 parser.add_argument('--K', type=int, default=5, help='Posterior samples when evaluating class label decoder.')
-
 # Visualization arguments 
 parser.add_argument('--visualize_latents', action='store_true', default=False, help='PCA plot of latents in 2D.')
 parser.add_argument('--visualization_method', type=str, default='pca', help='Method for visualizing latents.', choices=[ 'tsne', 'pca',])
-
 # Other arguments
 parser.add_argument('--seed', type=int, default=0, help='Random seed')
 parser.add_argument('--print_every', type=int, default=1, help='Print every i\'th epoch')
@@ -67,14 +61,28 @@ parser.add_argument('--feature_extractor_name', type=str, default='densenet', he
 
 args = parser.parse_args() 
 
+# Add argument for use of classifier decoder
+views = args.model_name.split('_')[-1]
+args.use_labels = True if 'y' in views else False
+args.use_text = True if 'w' in views else False
+args.use_iconic = True if 'i' in views else False
+args.use_private = True if 'private' in args.model_name else False
+args.use_batchnorm = True if args.use_batchnorm == 1 else False
+print(args)
+
 # Create directories and saving file
 if not os.path.exists(args.save_file):
     os.mknod(args.save_file)
-
 if not os.path.exists(args.save_dir):
     os.mkdir(args.save_dir)
 if not os.path.exists(args.model_dir):
     os.mkdir(args.model_dir)
+
+# Add directory for saving softmax classifier
+if not args.use_labels:
+    args.clf_dir = os.path.join(args.model_dir, 'saved_classifier')
+    if not os.path.exists(args.clf_dir):
+        os.mkdir(args.clf_dir)
 
 # Reset graph and set seed
 tf.reset_default_graph()
@@ -82,18 +90,10 @@ print("Random seed: ", args.seed)
 tf.random.set_random_seed(args.seed)
 np.random.seed(args.seed)
 
-# Add argument for use of classifier decoder
-args.use_labels = True if 'y' in args.model_name else False
-args.use_private = True if 'private' in args.model_name else False
-args.use_text = True if 'w' in args.model_name else False
-args.use_iconic = True if 'i' in args.model_name.split('_')[-1] else False
-print(args)
-
 ### Load datasets
 train_data, val_data, test_data = get_datasets(args)
 
 ### Get model
-args.use_batchnorm = True if args.use_batchnorm == 1 else False
 model = get_model(args, train_data)
 elbo = model.loss
 
@@ -171,10 +171,14 @@ else:
     ValueError('Unknown eval_mode: %s'.format(args.eval_mode))
 
 if args.use_labels:
-    tensors = {'x': model.x, 'labels': model.labels, 'scores': model.val_score,
-                'accuracy': model.val_accuracy, 'posterior_samples': model.K}
+    model_type = args.model_name.split('_')[0]
+    if model_type == 'vcca':
+        tensors = {'x': model.x, 'labels': model.labels, 'scores': model.val_score,
+                    'accuracy': model.val_accuracy, 'posterior_samples': model.K}
+    elif model_type == 'splitae':
+        tensors = {'x': model.x, 'labels': model.labels, 'scores': model.logits, 'accuracy': model.accuracy}
+        
     accuracy, accuracy_coarse, predicted_labels = evaluate_class_label_decoder(args, sess, tensors, eval_data)
-
 else:
     # Softmax classifier
     latent_rep_train = sess.run(model.latent_rep, feed_dict={model.x: train_data['features']} )
@@ -190,9 +194,6 @@ if args.visualize_latents:
     # Add latent representations to dataset dictionaries
     train_data = add_latents_to_dataset(args, sess, model, train_data)
     eval_data = add_latents_to_dataset(args, sess, model, eval_data)
-
-    #train_data['latents'] = sess.run(model.latent_rep, feed_dict={model.x: train_data['features']} )
-    #eval_data['latents'] = sess.run(model.latent_rep, feed_dict={model.x: eval_data['features']} )
 
     # Plot latents in 2D using PCA
     plot_latent_representation(args, train_data, eval_data, method='pca')
