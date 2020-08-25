@@ -77,8 +77,7 @@ python train.py --data_path /path/to/processed_data --model_name vcca_xiwy
 If we would like to change the scaling weights of the model, we pass value of 
 the scaling weights as arguments by executing:
 ```
-python train.py --data_path /path/to/processed_data --model_name vcca_xiwy \
-				--lambda_i 1000 --lambda_w 1000 --lambda_y 1000
+python train.py --data_path /path/to/processed_data --model_name vcca_xiwy --lambda_i 1000 --lambda_w 1000 --lambda_y 1000
 ```
 
 For saving the trained model, pass the argument ```--save_model 1```. 
