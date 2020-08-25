@@ -5,6 +5,7 @@
 Install the conda environment by executing the following command in a terminal:
 ```
 conda env create -f environment.yml
+conda activate vcca_grocerystore
 ```
 
 ## Data
@@ -18,8 +19,9 @@ The preprocessing includes fetching image paths and labels, and
 creating a vocabulary for the text descriptions.
 
 ```
-python ./data/preprocess_data.py --data_path /path/to/GroceryStoreDataset --save_dir /path/to/save/data_splits
-	--T text_description_length
+python ./data/preprocess_data.py --data_path /path/to/GroceryStoreDataset \
+	--save_dir /path/to/save/data_splits \
+	--caption_length text_description_length
 ```
 
 ## Training
