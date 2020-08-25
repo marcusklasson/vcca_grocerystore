@@ -6,7 +6,7 @@ import numpy as np
 from data.import_data import load_iconic_images
 
 from models.networks.lstm_networks import language_generator, build_sampler
-from models.networks.conv_netowrks import conv_decoder
+from models.networks.conv_networks import conv_decoder
 
 class VCCA(object):
 
