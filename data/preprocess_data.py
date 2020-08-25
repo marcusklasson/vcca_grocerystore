@@ -15,7 +15,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', type=str, default='/home/marcus/workspace/datasets/GroceryStoreDataset/dataset',
                     help='Directory for image dataset')
 parser.add_argument('--save_dir', type=str, default='./data/processed', help='Directory for saving processed data')
-parser.add_argument('--caption_length', type=int, default=24, help='Maximum number of words in text descriptions')
+parser.add_argument('--caption_length', type=int, default=36, 
+                    help='Maximum number of words in text descriptions. Mean and max length are 36 and 91 words respectively.')
 
 def process_caption_data(class_file, data_path, max_length, stop_words=None):
     """ Process captions and get iconic image paths.
