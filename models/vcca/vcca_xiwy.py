@@ -57,7 +57,7 @@ class VCCA(object):
         self.H = dim_z # LSTM hidden state size
         
         self.x = tf.placeholder(tf.float32, [None, self.dim_x], name='x')
-        self.iconic_images = tf.placeholder(tf.float32, [None, dim_i[0], dim_i[1], dim_i[2]], name='i')
+        self.iconic_images = tf.placeholder(tf.float32, [None, dim_i[0], dim_i[1], dim_i[2]], name='iconic_images')
         self.captions = tf.placeholder(tf.int32, [None, self.T + 1], name='captions')
         self.labels = tf.placeholder(tf.float32, [None, self.dim_labels], name='labels')
 

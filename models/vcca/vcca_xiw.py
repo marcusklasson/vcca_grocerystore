@@ -10,7 +10,7 @@ from models.networks.conv_networks import conv_decoder
 
 class VCCA(object):
 
-    def __init__(self, dim_x, dim_z, dim_y, dim_w, word_to_idx,
+    def __init__(self, dim_x, dim_z, dim_i, dim_w, word_to_idx,
                     lambda_x=1.0, lambda_i=1.0, lambda_w=1.0,
                     n_layers_encoder=1, n_layers_decoder=1, fc_hidden_size=512):
         """ VCCA for image features, iconic images, and text descriptions.
@@ -31,7 +31,7 @@ class VCCA(object):
         """
         self.dim_x = dim_x
         self.dim_z = dim_z
-        self.dim_y = dim_y
+        self.dim_i = dim_i
         self.dim_w = dim_w
         # likelihood weighting terms
         self.lambda_x = lambda_x
@@ -50,7 +50,7 @@ class VCCA(object):
         self.H = dim_z # LSTM hidden state size
         
         self.x = tf.placeholder(tf.float32, [None, self.dim_x], name='x')
-        self.y = tf.placeholder(tf.float32, [None, dim_y[0], dim_y[1], dim_y[2]], name='y')
+        self.iconic_images = tf.placeholder(tf.float32, [None, dim_y[0], dim_y[1], dim_y[2]], name='iconic_images')
         self.captions = tf.placeholder(tf.int32, [None, self.T + 1], name='captions')
 
         # Used batch normalization in generator
@@ -78,10 +78,10 @@ class VCCA(object):
         self.x_rec_loss = tf.reduce_sum((self.x - self.x_recon)**2, 1) * self.lambda_x
 
         ### Iconic image decoder 
-        self.y_recon = self.get_conv_decoder( self.z_sample )
-        iconic_image_recon = tf.identity(self.y_recon, name='iconic_image_recon') 
+        self.i_recon = self.get_conv_decoder( self.z_sample )
+        iconic_image_recon = tf.identity(self.i_recon, name='iconic_image_recon') 
         # Sum of squares loss
-        self.y_rec_loss = tf.reduce_sum((self.y - self.y_recon)**2, [1, 2, 3]) * self.lambda_i
+        self.i_rec_loss = tf.reduce_sum((self.iconic_images - self.i_recon)**2, [1, 2, 3]) * self.lambda_i
 
         ### Text description decoder 
         self.language_loss, self.all_h_train = self.get_text_loss( self.z_sample )
@@ -90,7 +90,7 @@ class VCCA(object):
 
         ### KL divergence and ELBO
         self.kl_div = self.kl_divergence(self.z_mu, self.z_log_sigma_sq) * self.kl_weight   
-        self.loss = -tf.reduce_mean(self.kl_div + self.x_rec_loss + self.y_rec_loss + self.caption_rec_loss)
+        self.loss = -tf.reduce_mean(self.kl_div + self.x_rec_loss + self.i_rec_loss + self.caption_rec_loss)
 
         ### Evaluation ###
         self.z_sample_eval, _, _ = self.get_encoder( self.x, reuse = True )
@@ -103,10 +103,10 @@ class VCCA(object):
         den = tf.expand_dims(tf.reduce_sum(mask, axis=-1), axis=1)
         self.text_rep = tf.reduce_sum(all_hidden, axis=1) / den 
 
-        self.y_recon_eval = self.get_conv_decoder( self.z_sample_eval, reuse = True ) 
+        self.i_recon_eval = self.get_conv_decoder( self.z_sample_eval, reuse = True ) 
 
         ### Used in training feed_dict
-        self.log_var = [self.loss, self.kl_div, self.x_rec_loss, self.y_rec_loss, self.caption_rec_loss]
+        self.log_var = [self.loss, self.kl_div, self.x_rec_loss, self.i_rec_loss, self.caption_rec_loss]
         self.val_log_var = self.log_var
 
     def get_encoder(self, x, y=None, reuse=None):

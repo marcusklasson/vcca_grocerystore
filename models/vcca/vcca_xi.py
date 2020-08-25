@@ -28,7 +28,7 @@ class VCCA(object):
         self.dim_x = dim_x
         self.dim_z = dim_z
         self.dim_i = dim_i
-        # likelihood weighting terms
+
         self.lambda_x = lambda_x
         self.lambda_i = lambda_i
         self.n_layers_encoder = n_layers_encoder
@@ -36,7 +36,7 @@ class VCCA(object):
         self.fc_hidden_size = fc_hidden_size
         
         self.x = tf.placeholder(tf.float32, [None, self.dim_x], name='x')
-        self.iconic_images = tf.placeholder(tf.float32, [None, dim_i[0], dim_i[1], dim_i[2]], name='i')
+        self.iconic_images = tf.placeholder(tf.float32, [None, dim_i[0], dim_i[1], dim_i[2]], name='iconic_images')
 
         # Used batch normalization in generator
         self.is_training = tf.placeholder_with_default(False, shape=(), name='is_training')
