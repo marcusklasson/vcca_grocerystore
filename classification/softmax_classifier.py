@@ -1,18 +1,19 @@
+
 import tensorflow as tf
 import numpy as np
 import sys
-import os,os.path
+import os, os.path
 import random
 import argparse
 import pickle
 import datetime 
 
-from IPython import embed
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ["TF_CPP_MIN_LOG_LEVEL"]='3'
 
 def classificationLayer(x, classes, name="classification", reuse=False, isTrainable=True, seed=0):
+    """ Create linear layer as classifier.
+    """
        
     with tf.variable_scope(name) as scope:
         if reuse:
@@ -30,6 +31,29 @@ class Classifier:
     def __init__(self, _train_X, _train_Y,  _nclass, _input_dim, logdir, modeldir,
                  _lr=0.001, _beta1=0.5, _nepoch=100, _batch_size=100, pretrain_classifer='',
                  seed=0, save_model=True, _val_X=None, _val_Y=None):
+        """ Initialize softmax classifier.
+
+            Code adapted from:
+            https://github.com/akku1506/Feature-Generating-Networks-for-ZSL/blob/master/classifier.py
+
+        Args:
+            _train_X: Features from training set. 
+            _train_Y: Labels for training set.
+            _nclass: Number of classes in dataset for setting output of classifier.
+            _input_dim: Input data dimension.
+            logdir: Directory where to save logs.
+            modeldir: Directory for saving classifier.
+            _lr: Learning rate.
+            _beta1: Hyperparameter for Adam optimizer.
+            _nepoch: Number of training epochs.
+            _batch_size: Batch size.
+            pretrain_classifier: 
+            seed: Random seed.
+            save_model: Option for saving classifier or not.
+            _val_X: Features from validation set.
+            _val_Y: Labels from validation set.
+
+        """
         self.train_X = _train_X 
         self.train_Y = _train_Y 
         self.batch_size = _batch_size
@@ -89,6 +113,8 @@ class Classifier:
             self.merged_all = tf.summary.merge_all()        
     
     def next_batch(self, batch_size):
+        """ Fetching next batch in dataset.
+        """
         start = self.index_in_epoch
         # shuffle the data at the first epoch
         if self.epochs_completed == 0 and start == 0:
@@ -130,6 +156,8 @@ class Classifier:
             return self.train_X[start:end], self.train_Y[start:end]
 
     def train(self):
+        """ Train classifier and optionally evaluate on validation set.
+        """
         print('Start training classifier...')
         # Set seed for dataset shuffle
         np.random.seed(self.seed)    
@@ -194,6 +222,8 @@ class Classifier:
                     self.saver.save(sess, os.path.join(self.modeldir, 'models_'+str(epoch)+'.ckpt'))        
 
     def val(self, test_X, test_label): 
+        """ Load saved classifier and evaluate on test data.
+        """
         start = 0
         ntest = test_X.shape[0]
         predicted_label = np.empty_like(test_label)
