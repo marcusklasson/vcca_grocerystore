@@ -78,7 +78,7 @@ def get_model(args, dataset):
 
     elif args.model_name == 'vcca_xiw':
         from models.vcca.vcca_xiw import VCCA
-        model = VCCA(dim_x=dim_x, dim_z=args.z_dim, dim_y=dim_iconic_image, dim_w=dim_w,
+        model = VCCA(dim_x=dim_x, dim_z=args.z_dim, dim_i=dim_iconic_image, dim_w=dim_w,
              word_to_idx=word_to_idx, lambda_x=args.lambda_x, lambda_i=args.lambda_i, lambda_w=args.lambda_w,
              n_layers_encoder=args.n_layers_encoder, n_layers_decoder=args.n_layers_decoder)     
 

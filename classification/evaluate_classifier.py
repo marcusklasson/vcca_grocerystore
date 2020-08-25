@@ -1,4 +1,5 @@
 
+import os
 import numpy as np
 import tensorflow as tf
 
@@ -20,12 +21,12 @@ def evaluate_class_label_decoder(args, session, tensors, data):
         the predicted labels for each sample. 
 
     """
+    model_type = args.model_name.split('_')[0] # vcca or splitae
     # Get tensors
     x_tensor = tensors['x']
     labels_tensor = tensors['labels']
     scores_tensor = tensors['scores']
     accuracy_tensor = tensors['accuracy']
-    posterior_samples_tensor = tensors['posterior_samples']
 
     # Get data
     features = data['features']
@@ -51,8 +52,11 @@ def evaluate_class_label_decoder(args, session, tensors, data):
 
         x_batch = features[start:end]
         labels_batch = onehot_encode(labels[start:end], n_classes)
-        acc, predicted = session.run([accuracy_tensor, scores_tensor],
-                                        feed_dict={x_tensor: x_batch, labels_tensor: labels_batch, posterior_samples_tensor: K} )
+        feed_dict = {x_tensor: x_batch, labels_tensor: labels_batch}
+        if model_type == 'vcca': # Add posterior samples K
+            feed_dict[tensors['posterior_samples']] = K
+
+        acc, predicted = session.run([accuracy_tensor, scores_tensor], feed_dict=feed_dict)
         accuracy += np.sum(acc)
         predicted_labels[start:end] = np.argmax(predicted, axis=1)
     accuracy = accuracy / n_batches
@@ -87,9 +91,9 @@ def evaluate_softmax_classifier(args, eval_data, train_data, train=True):
     n_coarse_classes = eval_data['n_coarse_classes']
 
     inputdim = latent_features_train.shape[-1]
-
+    log_dir = os.path.join(args.clf_dir, 'logs')
     clf = Classifier(latent_features_train, labels_train, n_classes, inputdim,
-                     logdir=args.log_dir, modeldir=args.clf_dir, _nepoch=100)
+                     logdir=log_dir, modeldir=args.clf_dir, _nepoch=100)
     if train:
         clf.train()
     accuracy, predicted_labels = clf.val(latent_features_eval, labels_eval)
