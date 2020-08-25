@@ -1,5 +1,11 @@
 # VCCA for Grocery Store Dataset
 
+Implementation of Variational Canonical Correlation Analysis (VCCA) for 
+grocery item classification with the Grocery Store dataset. VCCA can
+makes use of the web-scraped information in the dataset (i.e. iconic images and text 
+descriptions) to learn better representations ofthe grocery items.
+
+Note that the code is written in Tensorflow 1!
 
 ## Install conda environment
 Install the conda environment by executing the following command in a terminal:
@@ -12,12 +18,13 @@ conda activate vcca_grocerystore
 
 Download the Grocery Store dataset and store it wherever appropriate for you.
 
-[Github link to the Grocery Store dataset](https://github.com/marcusklasson/GroceryStoreDataset).
+[Github link to the Grocery Store dataset](https://github.com/marcusklasson/GroceryStoreDataset)
 
 Before training, we have to preprocess the data. 
 The preprocessing includes fetching image paths and labels, and 
 creating a vocabulary for the text descriptions. 
-Remember to specifiy a 
+The default text description length is 36 words, but this can be changed
+by 
 
 ```
 python ./data/preprocess_data.py --data_path /path/to/GroceryStoreDataset \
@@ -34,7 +41,7 @@ The features should be stored in the same directory as where the preprocessed da
 
 
 ```
-python train.py --model_name model_name --data_path /path/to/processed_data
+python train.py --model_name MODEL_NAME --data_path /path/to/processed_data
 ```
 
 ## Test
@@ -45,5 +52,8 @@ If you want to
 
 Then run the following command:
 ```
-python test.py --model_name model_name --data_path /path/to/processed_data --model_dir
+python test.py --model_name MODEL_NAME --data_path /path/to/processed_data --model_dir
 ```
+
+## To-dos
+- [] Should use inheritance for the models by writing VAE base classes that the VCCA models inherits from.
