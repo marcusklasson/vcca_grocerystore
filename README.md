@@ -39,21 +39,59 @@ The features should be stored in the same directory as where the preprocessed da
 
 ## Training
 
+Start by selecting which model you wish to train:
+* VCCA: ```vcca_xi, vcca_xiy, vcca_xw, vcca_xwy, vcca_xiw, vcca_xiwy, vcca_xy ```
+* VCCA-private: ```vcca_private_xi, vcca_private_xiy, vcca_private_xw, vcca_private_xwy ```
+* VAE: ```vae```
+* SplitAutoencoder: ```splitae_xi, splitae_xiy, splitae_xw, splitae_xwy, splitae_xiw, splitae_xiwy, splitae_xy ```
+* Autoencoder: ```ae```
 
+The subscript indicates which data views from the dataset that are used during training:
+* ```x```: Image features extracted from pre-trained DenseNet (download features above)
+* ```i```: Iconic images of grocery items
+* ```w```: Text descriptions of grocery items
+* ```y```: Class labels of the natural images
+
+The VAE and Autoencoder names do not use a subscript because they only use the image features ```x```.
+If selecting a model without ```y```, then classification is performed by training a softmax classifier
+on the latent representations of the model.
+
+We can choose to scale the reconstruction losses for each view by passing a number to 
+the following arguments to train.py:
+* ```--lambda_x```: Scaling weight for image feature loss
+* ```--lambda_i```: Scaling weight for iconic image loss 
+* ```--lambda_i```: Scaling weight for text descriptions loss
+* ```--lambda_y```: Scalign weight for class labels
+
+The default values for all scaling weights is 1.
+
+As an example, we train the model ```vcca_xiwy``` by executing:
 ```
-python train.py --model_name MODEL_NAME --data_path /path/to/processed_data
+python train.py --data_path /path/to/processed_data --model_name vcca_xiwy 
 ```
+If we would like to change the scaling weights of the model, we pass value of 
+the scaling weights as arguments by executing:
+```
+python train.py --data_path /path/to/processed_data --model_name vcca_xiwy \
+				--lambda_i 1000 --lambda_w 1000 --lambda_y 1000
+```
+
+For saving the trained model, pass the argument ```--save_model 1```. 
+You can also specify the directory where the model should be saved with the argument ```--model_dir /path/to/saved_model```.
 
 ## Test
-If you want to 
+You can load a trained model in the script ```test.py``` to
 * compute the fine- and coarse-grained accuracy 
-* visualize the latent representations
+* plot the latent representations in 2D
 * decode iconic images from natural images and compute metrics for the decoded images (if iconic image decoder was used in model) 
 
-Then run the following command:
+Run the script by executing:
 ```
-python test.py --model_name MODEL_NAME --data_path /path/to/processed_data --model_dir
+python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_model --model_name MODEL_NAME 
 ```
+If the model used a softmax classifier, then pass the argument ```--clf_dir /path/to/saved_classifier```
+
+Metrics and images are saved in the directory passed as argument ```--save_dir /path/to/saved_metrics_and_images```
 
 ## To-dos
-- [] Should use inheritance for the models by writing VAE base classes that the VCCA models inherits from.
+- [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
