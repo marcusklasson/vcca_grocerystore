@@ -129,12 +129,22 @@ eval_data = test_data
 # Classification
 if args.use_labels:
     labels = graph.get_tensor_by_name("labels:0")
-    scores = graph.get_tensor_by_name("classifier_val_softmax_score:0")
-    accuracy = graph.get_tensor_by_name("classifier_val_accuracy:0")
-    posterior_samples = graph.get_tensor_by_name("posterior_samples:0")
+    tensors = {'x': x, 'labels': labels}
+    
+    model_type = args.model_name.split('_')[0]
+    if model_type == 'vcca':
+        tensors['scores'] = graph.get_tensor_by_name("classifier_val_softmax_score:0")
+        tensors['accuracy'] = graph.get_tensor_by_name("classifier_val_accuracy:0")
+        tensors['posterior_samples'] = graph.get_tensor_by_name("posterior_samples:0")
+    elif model_type == 'splitae':
+        tensors['scores'] = graph.get_tensor_by_name("logits:0")
+        tensors['accuracy'] = graph.get_tensor_by_name("accuracy:0")        
 
-    tensors = {'x': x, 'labels': labels, 'scores': scores, 'accuracy': accuracy, 
-                'posterior_samples': posterior_samples}
+    #scores = graph.get_tensor_by_name("classifier_val_softmax_score:0")
+    #accuracy = graph.get_tensor_by_name("classifier_val_accuracy:0")
+    #posterior_samples = graph.get_tensor_by_name("posterior_samples:0")
+    #tensors = {'x': x, 'labels': labels, 'scores': scores, 'accuracy': accuracy, 
+    #            'posterior_samples': posterior_samples}
     accuracy, accuracy_coarse, predicted_labels = evaluate_class_label_decoder(args, sess, tensors, eval_data)
 
 else:
