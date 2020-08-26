@@ -62,7 +62,7 @@ class VCCA_private(object):
         ### Encoder for shared latent variable z
         self.z_sample, self.z_mu, self.z_log_sigma_sq = self.get_encoder(self.x, name='variational/z')
         self.latent_rep = self.z_mu # Latent representation
-        latent_rep = tf.identity(self.latent_rep, name='latent_rep_z') # for fetching tensor when restoring model!
+        latent_rep = tf.identity(self.latent_rep, name='latent_rep') # for fetching tensor when restoring model!
 
         # Encoder for image feature private latent hx
         self.ux_sample, self.ux_mu, self.ux_log_sigma_sq = self.get_encoder(self.x, name='variational/ux')
