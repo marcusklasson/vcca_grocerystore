@@ -284,9 +284,9 @@ def plot_with_peppers(args, transformed, labels, label2name, method='pca'):
     ax.scatter(x=yellow_feats[:, 0], y=yellow_feats[:, 1], s=80, c='gold', alpha=0.9)
 
     #plt.axis('off')
-    if method == 'pca':
-        plt.xlim(-15, 15)
-        plt.ylim(-15, 15)
+    #if method == 'pca':
+    #    plt.xlim(-15, 15)
+    #    plt.ylim(-15, 15)
     
     plt.tight_layout()
     file_name = '%s_latent_peppers_%s_seed%d.png' %(method, args.model_name, args.seed)
