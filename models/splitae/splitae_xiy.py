@@ -74,10 +74,12 @@ class SplitAE(object):
 
         # Classifier
         self.logits = self.get_classifier(self.z_emb)
+        logits = tf.identity(self.logits, name='logits')
         self.clf_loss = tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.labels, logits=self.logits) * self.lambda_y
 
         self.correct_pred = tf.equal(tf.argmax(self.labels, axis=-1), tf.argmax(self.logits, axis=-1))
         self.accuracy = tf.reduce_mean(tf.cast(self.correct_pred, tf.float32))
+        accuracy = tf.identity(self.accuracy, name='accuracy')
 
         ### Total loss
         self.loss = -tf.reduce_mean(self.x_rec_loss + self.i_rec_loss + self.clf_loss)
