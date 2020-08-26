@@ -5,7 +5,8 @@ grocery item classification with the Grocery Store dataset. VCCA can
 make use of the web-scraped information in the dataset (i.e. iconic images and text 
 descriptions) to learn better representations of the grocery items.
 
-Note that the code is written in Tensorflow 1!
+Follow the instructions below to perform experiments with the
+implemented models. Note that the code is written in Tensorflow 1!
 
 ## Install conda environment
 Install the conda environment by executing the following command in a terminal:
