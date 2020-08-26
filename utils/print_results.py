@@ -229,7 +229,7 @@ def write_accuracy_to_file(args, accuracy, accuracy_coarse):
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i, args.lambda_y))
 
         elif model_name == 'vcca_xiw' or model_name == 'splitae_xiw':
-            file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f} \n".format(
+            file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i, args.lambda_w))
 
         elif model_name == 'vcca_xiwy' or model_name == 'splitae_xiwy':
