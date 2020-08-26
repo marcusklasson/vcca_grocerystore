@@ -2,8 +2,8 @@
 
 Implementation of Variational Canonical Correlation Analysis (VCCA) for 
 grocery item classification with the Grocery Store dataset. VCCA can
-makes use of the web-scraped information in the dataset (i.e. iconic images and text 
-descriptions) to learn better representations ofthe grocery items.
+make use of the web-scraped information in the dataset (i.e. iconic images and text 
+descriptions) to learn better representations of the grocery items.
 
 Note that the code is written in Tensorflow 1!
 
@@ -28,7 +28,7 @@ The default text description length is 36 words, but this can be changed
 by 
 
 ```
-python ./data/preprocess_data.py --data_path /path/to/GroceryStoreDataset \
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset \
 	--save_dir /path/to/save/data
 ```
 
@@ -55,7 +55,7 @@ The subscript indicates which data views from the dataset that are used during t
 * ```w```: Text descriptions of grocery items
 * ```y```: Class labels of the natural images
 
-The VAE and Autoencoder names do not use a subscript because they only use the image features ```x```.
+The VAE and Autoencoder model names do not use a subscript because they only use the image features ```x```.
 If selecting a model without ```y```, then classification is performed by training a softmax classifier
 on the latent representations of the model.
 
@@ -79,9 +79,12 @@ the scaling weights as arguments by executing:
 ```
 python train.py --data_path /path/to/processed_data --model_name vcca_xiwy --lambda_i 1000 --lambda_w 1000 --lambda_y 1000
 ```
+The file ```clf_metrics.txt``` includes the fine- and coarse-grained accuracies predicted
+by the used classifier.
 
 For saving the trained model, pass the argument ```--save_model 1```. 
 You can also specify the directory where the model should be saved with the argument ```--model_dir /path/to/saved_model```.
+If the softmax classifier is used, then it is stored in ```/path/to/saved_model/saved_classifier```.
 
 ## Test
 You can load a trained model in the script ```test.py``` to
@@ -93,11 +96,10 @@ Run the script by executing:
 ```
 python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_model --model_name MODEL_NAME 
 ```
-If the model used a softmax classifier, then pass the argument 
-```--clf_dir /path/to/saved_classifier```
-
-Metrics and images are saved in the directory passed as argument 
-```--save_dir /path/to/saved_metrics_and_images```
+The metrics and images are saved in the directory ```saved_images_and_metrics``` by default.
+The directory can be passed as argument with ```--save_dir /path/to/new_name_for_saved_metrics_and_images```
 
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
+- [ ] Implement decoding of iconic images with ```vcca_private_xi, vcca_private_xiy``` by sampling 
+private latent variable from Gaussian prior. 
