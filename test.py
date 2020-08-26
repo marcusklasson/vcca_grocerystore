@@ -20,12 +20,13 @@ parser = argparse.ArgumentParser()
 # Directory arguments
 parser.add_argument('--data_path', type=str, default='./data/processed', help='Data directory')
 parser.add_argument('--model_dir', type=str, default='./saved_model', help='Saved model directory')
-parser.add_argument('--clf_dir', type=str, default='./saved_model/saved_classifier', help='Saved classifier directory')
 parser.add_argument('--save_dir', type=str, default='./saved_images_and_metrics', help='For saving images.')
 # Model arguments
 parser.add_argument('--model_name', type=str, default='vcca_xi', help='Model name',
     choices=[ 'vae_x', 'vcca_xy', 'vcca_xw', 'vcca_xwy', 'vcca_xi', 'vcca_xiy', 'vcca_xiw', 'vcca_xiwy',
+              'vcca_private_xw', 'vcca_private_xwy', 'vcca_private_xi', 'vcca_private_xiy',
               'ae_x', 'splitae_xy', 'splitae_xw', 'splitae_xwy', 'splitae_xi', 'splitae_xiy', 'splitae_xiw', 'splitae_xiwy', ])
+parser.add_argument('--z_dim', type=int, default=200, help='Dimension of latent space.')
 parser.add_argument('--K', type=int, default=5, help='Posterior samples when evaluating class label decoder.')
 # GMM arguments
 parser.add_argument('--n_components', type=int, default=2, help='Number of GMM components.')
@@ -108,6 +109,9 @@ args.use_text = True if 'w' in views else False
 args.use_iconic = True if 'i' in views else False
 args.use_private = True if 'private' in args.model_name else False
 
+if not args.use_labels:
+    args.clf_dir = os.path.join(args.model_dir, 'saved_classifier')
+
 # Create directories and files
 if not os.path.exists(args.save_dir):
     os.mkdir(args.save_dir)
@@ -163,7 +167,7 @@ with open(args.accuracy_file, 'a') as file:
         args.model_name, args.seed, accuracy, accuracy_coarse))
 
 # Compute iconic image metrics
-if args.use_iconic:
+if args.use_iconic and not args.use_private:
     # Create file for saving metrics
     if not os.path.exists(args.iconic_image_file):
         os.mknod(args.iconic_image_file)
