@@ -205,34 +205,42 @@ def write_accuracy_to_file(args, accuracy, accuracy_coarse):
     model_name = args.model_name
     with open(args.save_file, 'a') as file:
         if model_name == 'vae' or model_name == 'ae':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x))
 
         elif model_name == 'vcca_xy' or model_name == 'splitae_xy':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_y  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_y))
 
         elif model_name == 'vcca_xw' or model_name == 'splitae_xw' or model_name == 'vcca_private_xw':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_w  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_w))
 
         elif model_name == 'vcca_xwy' or model_name == 'splitae_xwy' or model_name == 'vcca_private_xwy':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_w  Lambda_y  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_w, args.lambda_y))
 
         elif model_name == 'vcca_xi' or model_name == 'splitae_xi' or model_name == 'vcca_private_xi':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_i  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i))
 
         elif model_name == 'vcca_xiy' or model_name == 'splitae_xiy' or model_name == 'vcca_private_xiy':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_i  Lambda_y  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i, args.lambda_y))
 
         elif model_name == 'vcca_xiw' or model_name == 'splitae_xiw':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_i  Lambda_w  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i, args.lambda_w))
 
         elif model_name == 'vcca_xiwy' or model_name == 'splitae_xiwy':
+            file.write("Seed  Accuracy  Coarse Accuracy    Lambda_x  Lambda_i  Lambda_w  Lambda_y  \n")
             file.write("{:d}  {:.3f}    {:.3f}      {:.1f}    {:.1f}    {:.1f}    {:.1f} \n".format(
                 args.seed, accuracy, accuracy_coarse, args.lambda_x, args.lambda_i, args.lambda_w, args.lambda_y))
 
