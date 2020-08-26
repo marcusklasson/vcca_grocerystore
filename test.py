@@ -35,7 +35,9 @@ parser.add_argument('--seed', type=int, default=0, help='Random seed.')
 parser.add_argument('--feature_extractor_name', type=str, default='densenet', help='Feature extractor. densenet or resnet')
 parser.add_argument('--batch_size', type=int, default=128, help='Batch size.')
 parser.add_argument('--save_images', action='store_true', default=False, help='Save image with natural, true and decoded iconic images.')
-parser.add_argument('--save_file', type=str, default='/home/marcus/iconic_image_metrics.txt', help='File for saving results')
+parser.add_argument('--accuracy_file', type=str, default='/home/marcus/iconic_image_metrics.txt', help='File for saving accuracy.')
+parser.add_argument('--iconic_image_file', type=str, default='/home/marcus/iconic_image_metrics.txt', 
+    help='File for saving metrics for iconic images.')
 parser.add_argument('--save_decoded_images', action='store_true', default=False, help='Save decoded iconic images.')
 
 args = parser.parse_args() 
@@ -109,8 +111,8 @@ args.use_private = True if 'private' in args.model_name else False
 # Create directories and files
 if not os.path.exists(args.save_dir):
     os.mkdir(args.save_dir)
-if not os.path.exists(args.save_file):
-    os.mknod(args.save_file)
+if not os.path.exists(args.accuracy_file):
+    os.mknod(args.accuracy_file)
 
 config = tf.ConfigProto(device_count = {'GPU': 0}) # only use cpu
 sess = tf.Session(config=config)
@@ -145,8 +147,16 @@ else:
 
     accuracy, accuracy_coarse, predicted_labels = evaluate_softmax_classifier(args, eval_data, train_data, train=False)
 
+# Write accuracies to file
+with open(args.accuracy_file, 'a') as file:
+    file.write("Model     Seed    Accuracy   Coarse Accuracy \n {:s}    {:d} {:.3f}    {:.3f}      \n".format(
+        args.model_name, args.seed, accuracy, accuracy_coarse))
+
 # Compute iconic image metrics
 if args.use_iconic:
+    # Create file for saving metrics
+    if not os.path.exists(args.iconic_image_file):
+        os.mknod(args.iconic_image_file)
     # Get image paths
     iconic_image_paths = np.unique(np.array(train_data['iconic_image_paths']))
     labels_eval = eval_data['labels']
@@ -204,7 +214,7 @@ if args.use_iconic:
         save_images_with_metrics(true_iconic, decoded_iconic, natural_images,
                                 labels_eval, predicted_labels, kl, image_path)
     # Write all metrics to txt file
-    with open(args.save_file, 'w') as file:
+    with open(args.iconic_image_file, 'w') as file:
         file.write('MSE {:.4f} \nMSE_correct {:.4f} \nMSE_incorrect {:.4f} \n'
             'PSNR {:.4f} \nPSNR_correct {:.4f} \n PSNR_incorrect {:.4f} \n'
             'SSIM {:.4f} \nSSIM_correct {:.4f} \nSSIM_incorrect {:.4f} \n'
