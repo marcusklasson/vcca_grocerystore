@@ -211,6 +211,8 @@ if args.use_iconic:
         true_iconic = load_iconic_images(eval_data['iconic_image_paths'])
         correct_idx = correct_idx.astype(int)
         image_path = os.path.join(args.save_dir, 'decoded_iconic_images')
+        if not os.path.exists(image_path):
+            os.mkdir(image_path)
         save_images_with_metrics(true_iconic, decoded_iconic, natural_images,
                                 labels_eval, predicted_labels, kl, image_path)
     # Write all metrics to txt file
