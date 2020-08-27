@@ -283,7 +283,7 @@ def plot_with_peppers(args, transformed, labels, label2name, method='pca'):
     ax.scatter(x=red_feats[:, 0], y=red_feats[:, 1], s=80, c='tomato', alpha=0.9)
     ax.scatter(x=yellow_feats[:, 0], y=yellow_feats[:, 1], s=80, c='gold', alpha=0.9)
 
-    #plt.axis('off')
+    plt.axis('off')
     #if method == 'pca':
     #    plt.xlim(-15, 15)
     #    plt.ylim(-15, 15)
@@ -291,7 +291,6 @@ def plot_with_peppers(args, transformed, labels, label2name, method='pca'):
     plt.tight_layout()
     file_name = '%s_latent_peppers_%s_seed%d.png' %(method, args.model_name, args.seed)
     fig.savefig(os.path.join(args.save_dir, file_name))
-    #plt.show()
 
 def get_image(path, size=32, zoom=0.3):
     """ Get image for plotting on top of 2D points.

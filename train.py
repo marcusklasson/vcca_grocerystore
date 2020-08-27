@@ -15,14 +15,11 @@ from utils.print_results import print_results, write_accuracy_to_file
 from utils.get_latents import add_latents_to_dataset
 from visualization.plot_latents import plot_latent_representation
 
-#from IPython import embed
-
 parser = argparse.ArgumentParser()
 # Directory arguments
 parser.add_argument('--data_path', type=str, default='./data/processed', help='Data directory')
 parser.add_argument('--model_dir', type=str, default='./saved_model', help='Saved model directory')
-#parser.add_argument('--clf_dir', type=str, default='./saved_models/saved_classifier', help='Saved classifier directory')
-parser.add_argument('--save_dir', type=str, default='/home/marcus/workspace/saved_images_and_metrics',
+parser.add_argument('--save_dir', type=str, default='./saved_images_and_metrics',
  help='Directory for saving figures and printing to files')
 # Training arguments
 parser.add_argument('--batch_size', type=int, default=64, help='Mini-batch size')
@@ -38,9 +35,9 @@ parser.add_argument('--model_name', type=str, default='ae', help='Model name',
               'ae', 'splitae_xy', 'splitae_xw', 'splitae_xwy', 'splitae_xi', 'splitae_xiy', 'splitae_xiw', 'splitae_xiwy', ])
 parser.add_argument('--z_dim', type=int, default=200, help='Dimension of latent variable')
 parser.add_argument('--lambda_x', type=float, default=1.0, help='Likelihood weight for features')
-parser.add_argument('--lambda_i', type=float, default=1.0, help='Likelihood weight for iconic images')
-parser.add_argument('--lambda_w', type=float, default=1.0, help='Likelihood weight for text')
-parser.add_argument('--lambda_y', type=float, default=1.0, help='Likelihood weight for labels')
+parser.add_argument('--lambda_i', type=float, default=1000.0, help='Likelihood weight for iconic images')
+parser.add_argument('--lambda_w', type=float, default=1000.0, help='Likelihood weight for text')
+parser.add_argument('--lambda_y', type=float, default=1000.0, help='Likelihood weight for labels')
 parser.add_argument('--dropout_rate', type=float, default=0.5, help='Dropout rate')
 parser.add_argument('--n_layers_encoder', type=int, default=1, help='Number of layers in encoder')
 parser.add_argument('--n_layers_decoder', type=int, default=1, help='Number of layers in decoder')
