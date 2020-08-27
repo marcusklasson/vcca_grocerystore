@@ -45,6 +45,11 @@ python train.py --data_path ./data/processed --model_dir ./saved_model --model_n
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name ae --seed 1
 ```
 
+Softmax
+```
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python train_softmax_classifier.py --data_path ./data/processed --model_dir ./softmax_clf --seed 1
+```
 
 ### Models using natural image features and class labels
 
