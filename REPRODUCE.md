@@ -24,7 +24,8 @@ The dataset can be stored wherever appropriate.
 We trained all models with 10 random seeds (1-10) to report mean and standard deviations in the classification results.
 
 Below are the instructions to reproduce the results in the submitted paper. 
-We set ```--seed 1``` as an example.
+We set ```--seed 1``` as an example. The code snippets use the hyperparameter settings
+that were used in the paper to produce Table 1.
 
 Remember to store the downloaded DenseNet features in the directory ```./data/processed```.
 
