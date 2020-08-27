@@ -102,9 +102,12 @@ The directory can be passed as argument with ```--save_dir /path/to/new_name_for
 
 ### Latent representation in 2D using PCA
 <p align="center">
-  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="225" title="hover text">
-  <img src="/figures/latent_representations/pca_latents_z_vae.png" width="225" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vae.png" width="300" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="300" title="hover text">
 </p>
+
+Latent representations plotted with the corresponding iconic images of models ```vae``` and ```vcca_xiwy``` 
+in the left and right figure respectively.
 
 ### Decoded iconic images
 <p align="center">
@@ -123,6 +126,10 @@ The directory can be passed as argument with ```--save_dir /path/to/new_name_for
   <img src="/figures/true_iconic_images/Arla-Ecological-Sour-Cream_Iconic.jpg" width="100" title="hover text">
   <img src="/figures/decoded_iconic_images/vcca_xiwy/arla_eco_sourcream_image1565.png" width="100" title="hover text">
 </p>
+
+Four examples of decoded iconic images from model ```vcca_xiwy``` by encoding the natural image and 
+decoding the retrieved latent representation through the iconic image decoder. The images are structured
+in the following order: 1) natural image, 2) true iconic image, 3) decoded iconic image. 
 
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
