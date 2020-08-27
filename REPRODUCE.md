@@ -32,14 +32,14 @@ Remember to store the downloaded DenseNet features in the directory ```./data/pr
 
 VAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vae --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vae --seed 1
 ```
 
 Autoencoder
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name ae --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name ae --seed 1
 ```
@@ -49,14 +49,14 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xy --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xy --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xy --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xy --seed 1
 ```
@@ -66,21 +66,21 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xi --lambda_i 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xi --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xi --lambda_i 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xi --seed 1
 ```
 
 VCCA-private
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_private_xi --lambda_i 10 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_private_xi --seed 1
 ```
@@ -89,21 +89,21 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xiy --lambda_i 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xiy --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xiy --lambda_i 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xiy --seed 1
 ```
 
 VCCA-private
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_private_xiy --lambda_i 10 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_private_xiy --seed 1
 ```
@@ -112,21 +112,21 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xw --lambda_w 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xw --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 40
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 40
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xw --lambda_w 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xw --seed 1
 ```
 
 VCCA-private
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_private_xw --lambda_w 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_private_xw --seed 1
 ```
@@ -135,21 +135,21 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xwy --lambda_w 1000 --lambda_y 10 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xwy --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 75
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xwy --lambda_w 1000 --lambda_y 10 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xwy --seed 1
 ```
 
 VCCA-private
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 50
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 50
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_private_xwy --lambda_w 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_private_xwy --seed 1
 ```
@@ -158,14 +158,14 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 32
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 32
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xiw --lambda_i 1000 --lambda_w 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xiw --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 24
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 24
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xiw --lambda_i 1000 --lambda_w 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xiw --seed 1
 ```
@@ -174,14 +174,14 @@ python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir
 
 VCCA
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 91
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 91
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name vcca_xiwy --lambda_i 1000 --lambda_w 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name vcca_xiwy --seed 1
 ```
 
 SplitAE
 ```
-python ./data/preprocessed_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 24
+python ./data/preprocess_data.py --data_dir /path/to/GroceryStoreDataset/dataset --save_dir ./data/processed --caption_length 24
 python train.py --data_path ./data/processed --model_dir ./saved_model --model_name splitae_xiwy --lambda_i 1000 --lambda_w 1000 --lambda_y 1000 --seed 1 --save_model 1
 python test.py --data_path ./data/processed --model_dir ./saved_model --save_dir ./saved_images_and_metrics --model_name splitae_xiwy --seed 1
 ```
