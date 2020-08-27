@@ -100,6 +100,30 @@ python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_mo
 The metrics and images are saved in the directory ```saved_images_and_metrics``` by default.
 The directory can be passed as argument with ```--save_dir /path/to/new_name_for_saved_metrics_and_images```
 
+### Latent representation in 2D using PCA
+<p align="center">
+  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.jpg" width="200" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vae.jpg" width="200" title="hover text">
+</p>
+
+### Decoded iconic images
+<p align="center">
+  <img src="/figures/natural_images/Mango_002_image477.jpg" width="150" title="hover text">
+  <img src="/figures/true_iconic_images/Mango_Iconic.jpg" width="150" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/mango_image477.png" width="150" title="hover text">
+  <img src="/figures/natural_images/Royal-Gala_055_image266.jpg" width="150" title="hover text">
+  <img src="/figures/true_iconic_images/Royal-Gala-Apple_Iconic.jpg" width="150" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/royal_gala_image266.png" width="150" title="hover text">
+</p>
+<p align="center">
+  <img src="/figures/natural_images/Orange-Bell-Pepper_008_image2191.jpg" width="150" title="hover text">
+  <img src="/figures/true_iconic_images/Orange-Bell-Pepper_Iconic.jpg" width="150" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/orange_bell_pepper_image2191.png" width="150" title="hover text">
+  <img src="/figures/natural_images/Arla-Ecological-Sour-Cream_005_image1565.jpg" width="150" title="hover text">
+  <img src="/figures/true_iconic_images/Arla-Ecological-Sour-Cream_Iconic.jpg" width="150" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/arla_eco_sourcream_image1565.png" width="150" title="hover text">
+</p>
+
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
 - [ ] Implement decoding of iconic images with ```vcca_private_xi, vcca_private_xiy``` by sampling 
