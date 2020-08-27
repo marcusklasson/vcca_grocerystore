@@ -102,8 +102,8 @@ The directory can be passed as argument with ```--save_dir /path/to/new_name_for
 
 ### Latent representation in 2D using PCA
 <p align="center">
-  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="175" title="hover text">
-  <img src="/figures/latent_representations/pca_latents_z_vae.png" width="175" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="225" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vae.png" width="225" title="hover text">
 </p>
 
 ### Decoded iconic images
