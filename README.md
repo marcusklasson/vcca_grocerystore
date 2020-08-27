@@ -1,12 +1,18 @@
-# VCCA for Grocery Store Dataset
+<h1> VCCA for Grocery Store Dataset </h1>
 
-Implementation of Variational Canonical Correlation Analysis (VCCA) for 
+This is the code used for an extension of the [WACV 2019 paper](https://arxiv.org/abs/1901.00711).
+It includes implementation of Variational Canonical Correlation Analysis (VCCA) for 
 grocery item classification with the Grocery Store dataset. VCCA can
 make use of the web-scraped information in the dataset (i.e. iconic images and text 
 descriptions) to learn better representations of the grocery items.
 
+# Usage
+
 Follow the instructions below to perform experiments with the
 implemented models. Note that the code is written in Tensorflow 1!
+
+If you are a reviewer for our recently submitted paper, 
+see [REPRODUCE](./REPRODUCE.md) for instructions for reproducing the results.
 
 ## Install conda environment
 Install the conda environment by executing the following command in a terminal:
@@ -104,10 +110,10 @@ The directory can be passed as argument with ```--save_dir /path/to/new_name_for
 <p align="center">
   <img src="/figures/latent_representations/pca_latents_z_vae.png" width="300" title="hover text">
   <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="300" title="hover text">
-</p>
-
-Latent representations plotted with the corresponding iconic images of models ```vae``` and ```vcca_xiwy``` 
+  Fig 1: Latent representations plotted with the corresponding iconic images of models ```vae``` and ```vcca_xiwy```
 in the left and right figure respectively.
+
+</p>
 
 ### Decoded iconic images
 <p align="center">
@@ -125,11 +131,11 @@ in the left and right figure respectively.
   <img src="/figures/natural_images/Arla-Ecological-Sour-Cream_005_image1565.jpg" width="100" title="hover text">
   <img src="/figures/true_iconic_images/Arla-Ecological-Sour-Cream_Iconic.jpg" width="100" title="hover text">
   <img src="/figures/decoded_iconic_images/vcca_xiwy/arla_eco_sourcream_image1565.png" width="100" title="hover text">
-</p>
+  Fig. 2: Four examples of decoded iconic images from model ```vcca_xiwy``` by encoding the natural image and
+  decoding the retrieved latent representation through the iconic image decoder. The images are structured
+in the following order: 1) natural image, 2) true iconic image, 3) decoded iconic image.
 
-Four examples of decoded iconic images from model ```vcca_xiwy``` by encoding the natural image and 
-decoding the retrieved latent representation through the iconic image decoder. The images are structured
-in the following order: 1) natural image, 2) true iconic image, 3) decoded iconic image. 
+</p>
 
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
