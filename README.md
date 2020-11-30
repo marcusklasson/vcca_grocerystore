@@ -99,6 +99,30 @@ python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_mo
 The metrics and images are saved in the directory ```saved_images_and_metrics``` by default.
 The directory can be passed as argument with ```--save_dir /path/to/new_name_for_saved_metrics_and_images```
 
+## Citation
+If you use this code or the Grocery Store dataset for your research, please cite our papers:
+
+```
+@article{klasson2020using,
+  title={Using Variational Multi-view Learning for Classification of Grocery Items},
+  author={Klasson, Marcus and Zhang, Cheng and Kjellstr{\"o}m, Hedvig},
+  journal={Patterns},
+  volume={1},
+  number={8},
+  pages={100143},
+  year={2020},
+  publisher={Elsevier}
+}
+```
+```
+@inproceedings{klasson2019hierarchical,
+  title={A Hierarchical Grocery Store Image Dataset with Visual and Semantic Labels},
+  author={Klasson, Marcus and Zhang, Cheng and Kjellstr{\"o}m, Hedvig},
+  booktitle={IEEE Winter Conference on Applications of Computer Vision (WACV)},
+  year={2019}
+}
+```
+
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
 - [ ] Implement decoding of iconic images with ```vcca_private_xi, vcca_private_xiy``` by sampling 
