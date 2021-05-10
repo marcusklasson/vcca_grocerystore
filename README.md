@@ -1,7 +1,10 @@
 <h1> VCCA for Grocery Store Dataset </h1>
 
-This is the code used for an extension of the [WACV 2019 paper](https://arxiv.org/abs/1901.00711).
-It includes implementation of Variational Canonical Correlation Analysis (VCCA) for 
+This is the official implementation of our paper 
+[Using Variational Multi-view Learning for Classification of Grocery Items](https://www.sciencedirect.com/science/article/pii/S2666389920301914) 
+that was published in the Cell Press journal Patterns. 
+This journal paper is an an extension of our [WACV 2019 paper](https://arxiv.org/abs/1901.00711).
+The repository includes implementation of Variational Canonical Correlation Analysis (VCCA) for 
 grocery item classification with the Grocery Store dataset. VCCA can
 make use of the web-scraped information in the dataset (i.e. iconic images and text 
 descriptions) to learn better representations of the grocery items.
