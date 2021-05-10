@@ -123,6 +123,9 @@ If you use this code or the Grocery Store dataset for your research, please cite
 }
 ```
 
+## Acknowledgement
+This research was funded by Stiftelsen Promobilia in Stockholm, Sweden.
+
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
 - [ ] Implement decoding of iconic images with ```vcca_private_xi, vcca_private_xiy``` by sampling 
