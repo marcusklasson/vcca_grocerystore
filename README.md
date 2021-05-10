@@ -1,11 +1,18 @@
-# VCCA for Grocery Store Dataset
+<h1> VCCA for Grocery Store Dataset </h1>
 
-Implementation of Variational Canonical Correlation Analysis (VCCA) for 
+This is the code used for an extension of the [WACV 2019 paper](https://arxiv.org/abs/1901.00711).
+It includes implementation of Variational Canonical Correlation Analysis (VCCA) for 
 grocery item classification with the Grocery Store dataset. VCCA can
 make use of the web-scraped information in the dataset (i.e. iconic images and text 
 descriptions) to learn better representations of the grocery items.
 
-Note that the code is written in Tensorflow 1!
+# Usage
+
+Follow the instructions below to perform experiments with the
+implemented models. Note that the code is written in Tensorflow 1!
+
+If you are a reviewer for our recently submitted paper, 
+see [REPRODUCE](./REPRODUCE.md) for instructions for reproducing the results.
 
 ## Install conda environment
 Install the conda environment by executing the following command in a terminal:
@@ -99,6 +106,39 @@ python test.py --data_path /path/to/processed_data --model_dir /path/to/saved_mo
 The metrics and images are saved in the directory ```saved_images_and_metrics``` by default.
 The directory can be passed as argument with ```--save_dir /path/to/new_name_for_saved_metrics_and_images```
 
+### Latent representation in 2D using PCA
+<p align="center">
+  <img src="/figures/latent_representations/pca_latents_z_vae.png" width="300" title="hover text">
+  <img src="/figures/latent_representations/pca_latents_z_vcca_xiwy.png" width="300" title="hover text">
+  
+  **Fig 1:** Latent representations plotted with the corresponding iconic images of models ```vae``` and ```vcca_xiwy```
+in the left and right figure respectively.
+
+</p>
+
+### Decoded iconic images
+<p align="center">
+  <img src="/figures/natural_images/Mango_002_image477.jpg" width="100" title="hover text">
+  <img src="/figures/true_iconic_images/Mango_Iconic.jpg" width="100" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/mango_image477.png" width="100" title="hover text">
+  <img src="/figures/natural_images/Royal-Gala_055_image266.jpg" width="100" title="hover text">
+  <img src="/figures/true_iconic_images/Royal-Gala-Apple_Iconic.jpg" width="100" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/royal_gala_image266.png" width="100" title="hover text">
+</p>
+<p align="center">
+  <img src="/figures/natural_images/Orange-Bell-Pepper_008_image2191.jpg" width="100" title="hover text">
+  <img src="/figures/true_iconic_images/Orange-Bell-Pepper_Iconic.jpg" width="100" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/orange_bell_pepper_image2191.png" width="100" title="hover text">
+  <img src="/figures/natural_images/Arla-Ecological-Sour-Cream_005_image1565.jpg" width="100" title="hover text">
+  <img src="/figures/true_iconic_images/Arla-Ecological-Sour-Cream_Iconic.jpg" width="100" title="hover text">
+  <img src="/figures/decoded_iconic_images/vcca_xiwy/arla_eco_sourcream_image1565.png" width="100" title="hover text">
+  
+  **Fig. 2:** Four examples of decoded iconic images from model ```vcca_xiwy``` by encoding the natural image and
+  decoding the retrieved latent representation through the iconic image decoder. The images are structured
+in the following order: 1) natural image, 2) true iconic image, 3) decoded iconic image.
+
+</p>
+
 ## Citation
 If you use this code or the Grocery Store dataset for your research, please cite our papers:
 
@@ -125,6 +165,7 @@ If you use this code or the Grocery Store dataset for your research, please cite
 
 ## Acknowledgement
 This research was funded by Stiftelsen Promobilia in Stockholm, Sweden.
+
 
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.

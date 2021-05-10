@@ -36,8 +36,8 @@ parser.add_argument('--seed', type=int, default=0, help='Random seed.')
 parser.add_argument('--feature_extractor_name', type=str, default='densenet', help='Feature extractor. densenet or resnet')
 parser.add_argument('--batch_size', type=int, default=128, help='Batch size.')
 parser.add_argument('--save_images', action='store_true', default=False, help='Save image with natural, true and decoded iconic images.')
-parser.add_argument('--accuracy_file', type=str, default='/home/marcus/iconic_image_metrics.txt', help='File for saving accuracy.')
-parser.add_argument('--iconic_image_file', type=str, default='/home/marcus/iconic_image_metrics.txt', 
+parser.add_argument('--accuracy_file', type=str, default='./saved_images_and_metrics/accuracy.txt', help='File for saving accuracy.')
+parser.add_argument('--iconic_image_file', type=str, default='./saved_images_and_metrics/iconic_image_metrics.txt', 
     help='File for saving metrics for iconic images.')
 parser.add_argument('--save_decoded_images', action='store_true', default=False, help='Save decoded iconic images.')
 
