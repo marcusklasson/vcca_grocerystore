@@ -139,6 +139,34 @@ in the following order: 1) natural image, 2) true iconic image, 3) decoded iconi
 
 </p>
 
+## Citation
+If you use this code or the Grocery Store dataset for your research, please cite our papers:
+
+```
+@article{klasson2020using,
+  title={Using Variational Multi-view Learning for Classification of Grocery Items},
+  author={Klasson, Marcus and Zhang, Cheng and Kjellstr{\"o}m, Hedvig},
+  journal={Patterns},
+  volume={1},
+  number={8},
+  pages={100143},
+  year={2020},
+  publisher={Elsevier}
+}
+```
+```
+@inproceedings{klasson2019hierarchical,
+  title={A Hierarchical Grocery Store Image Dataset with Visual and Semantic Labels},
+  author={Klasson, Marcus and Zhang, Cheng and Kjellstr{\"o}m, Hedvig},
+  booktitle={IEEE Winter Conference on Applications of Computer Vision (WACV)},
+  year={2019}
+}
+```
+
+## Acknowledgement
+This research was funded by Stiftelsen Promobilia in Stockholm, Sweden.
+
+
 ## To-dos
 - [ ] Should use inheritance for the models by writing a VAE base class that the VCCA models inherits from.
 - [ ] Implement decoding of iconic images with ```vcca_private_xi, vcca_private_xiy``` by sampling 
