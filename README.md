@@ -14,8 +14,7 @@ descriptions) to learn better representations of the grocery items.
 Follow the instructions below to perform experiments with the
 implemented models. Note that the code is written in Tensorflow 1!
 
-If you are a reviewer for our recently submitted paper, 
-see [REPRODUCE](./REPRODUCE.md) for instructions for reproducing the results.
+See [REPRODUCE](./REPRODUCE.md) for instructions to reproducing the results in the paper.
 
 ## Install conda environment
 Install the conda environment by executing the following command in a terminal:
